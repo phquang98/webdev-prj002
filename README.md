@@ -1,42 +1,33 @@
-# Template Backend Pure
-Last updated: 27/11/2021
-Tech: TS + Express
+# Simple Impl of Server with Session
+
+Last updated: 16/12/2021  
+Tech: TS + Express + `express-session` + `connect-mongo` (for session store)
 
 ## Run
 
 - `npm i`
-- `npm run build`: let `tsc` compile Node server in TS to JS, and compile again detect changes in `/src`
-- `npm start`: build a Node server using `nodemon`
-- remember install `.d.ts` files for any libraries with `npm i -D @types/yourLibHere`
+- `npm run build`
+- `npm start`
 
-## Replicate
+## Notes
 
-- clone this repo + del `package.json` + add code below
+- Code structure
+  - `/config`: vars for server, mongodb options, express-session options and a method to connect to Mongo
+  - `/middlewares`: contains logic code to handle respective routes
+  - `/routes`: simple routes for testing
+  - `/utils`: just a way to inject props to `req.session` without declare merge
+    - [See this](https://github.com/DefinitelyTyped/DefinitelyTyped/issues/49941)
 
-```json
-"scripts": {
-  "test": "echo \"Error: no test specified\" && exit 1",
-  "build": "tsc -w",
-  "start": "nodemon dist/app.js"
-},
+**Manual test - 20/12/2021**
 
-,
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "./src/**/*.ts": [
-      "npx eslint --max-warnings 100 --cache --fix",
-      "npx prettier --write"
-    ],
-    "./src/app.ts": [
-      "npx eslint --max-warnings 100 --cache --fix",
-      "npx prettier --write"
-    ]
-  }
-```
+- [x] session obj is saved and can be seen at Mongo Atlas
+  - [x] can save custom props inside the session obj, e.g: `{"cookie":{"originalMaxAge":29999,"expires":"2021-12-20T20:29:09.328Z","secure":false,"httpOnly":false,"path":"/","sameSite":"lax"},"userId":"1"}`
+  - [x] session is auto del based on `connect-mongo` using TTL ?
+- [x] client receives a cookie contains sessionID
+  - [x] tested on Postman & a simple React form
+  - [x] if client cookie is decay, can see new cookie be updated
+  - e.g: `s%3A6c26jOB0_JNzfLvi8OU5QIUw-Yf4Of5L.BmmxNCpoBK1b1hG4M7lZXmlYzuGMQ8XXiL5hfka3tPA`
+- [ ] receives from client a HTTP req with the Set-Cookie header attri ?
+  - [ ] use that to authN user to protected routes
 
-- `npm i dotenv express`
-- `npm i -D @types/express @types/node @typescript-eslint/eslint-plugin @typescript-eslint/parser cors @types/cors eslint eslint-config-prettier eslint-plugin-import eslint-plugin-node eslint-plugin-prettier husky@4.3.8 lint-staged nodemon @types/morgan morgan prettier typescript`
+## Bugs

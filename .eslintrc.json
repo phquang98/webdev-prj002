@@ -53,7 +53,8 @@
     ],
     "@typescript-eslint/explicit-function-return-type": ["warn"], // controversial
     "@typescript-eslint/explicit-module-boundary-types": ["warn"], // controversial
-    "@typescript-eslint/no-explicit-any": ["off"], // controlversial
+    "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_" }],
+    "@typescript-eslint/no-explicit-any": ["off"], // controversial
     "prettier/prettier": ["warn", {}, { "usePrettierrc": true }]
   }
 }
