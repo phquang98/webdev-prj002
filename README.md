@@ -1,6 +1,6 @@
-# Simple Impl of Server with Session
+# Simple Impl of Server with Session - ON HIATUS
 
-Last updated: 16/12/2021  
+Last updated: 20/12/2021  
 Tech: TS + Express + `express-session` + `connect-mongo` (for session store)
 
 ## Run
